@@ -6,13 +6,21 @@
   "repository": "https://github.com/suprekaka/web-crawler.git",
   "author": "Kaka <suprekaka@outlook.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "npm run build & node ./index > result.log",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cheerio": "^0.22.11",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-plugin-import": "^2.16.0",
+    "typescript": "^3.4.2"
   }
 }

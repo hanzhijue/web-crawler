@@ -1,24 +1,25 @@
-const store = {
+import { IStore } from "../typing";
+
+const store: IStore = {
   origin: {},
-  sorted: undefined,
+  sorted: [],
 };
 
 const list = () => {
   const {
-    origin,
     sorted,
   } = store;
-  return sorted || origin;
+  return sorted;
 };
 
-const save = (key, value) => {
+const save = (key: string, value: object) => {
   store.origin[key] = {
     ...value,
     key,
   };
 };
 
-const sort = (key, order = 'DESC') => {
+const sort = (key: string | number, order = 'DESC') => {
   const arrayList = Object.values(store.origin);
   arrayList.sort((prev, next) => {
     if (order === 'ASC') {
@@ -29,7 +30,7 @@ const sort = (key, order = 'DESC') => {
   store.sorted = arrayList;
 };
 
-module.exports = {
+export default {
   list,
   save,
   sort,

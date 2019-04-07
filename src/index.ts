@@ -1,17 +1,18 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const store = require('./store');
+import axios from 'axios';
+import { load } from 'cheerio';
+import store from './store';
+import { ISorted } from '../typing';
 
-const parseCount = (count) => {
+const parseCount = (count: string) => {
   if (count.includes('w')) {
     return Number(count.replace(/[w+]/g, '')) * 10000;
   }
   return Number(count);
 };
 
-const analysisPageDocument = (docText, pageKey) => {
-  const $ = cheerio.load(docText);
-  $('.main').each((i, it) => {
+const analysisPageDocument = (docText: string, pageKey: number) => {
+  const $ = load(docText);
+  $('.main').each((i: number, it) => {
     const name = $(it).find('.info h3').text();
     const downloadCount = parseCount($(it).find('.status_bar .download').text());
     const link = $($(it).children('a')[0]).attr('href');
@@ -38,7 +39,7 @@ const fetchData = async () => {
   return Promise.all(eventQueue);
 };
 
-const print = (list) => {
+const print = (list: ISorted) => {
   // console.log(JSON.stringify(list, undefined, 2));
   list.forEach((item) => {
     const {
@@ -67,6 +68,6 @@ const run = () => {
     });
 };
 
-module.exports = {
+export {
   run,
-};
+}
