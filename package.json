@@ -8,8 +8,8 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run build & node ./index > result.log",
-    "build": "tsc",
-    "watch": "tsc -w"
+    "build": "rm -fr ./dist & mkdir ./dist & tsc",
+    "watch": "rm -fr ./dist & mkdir ./dist & tsc -w"
   },
   "dependencies": {
     "axios": "^0.18.0",
