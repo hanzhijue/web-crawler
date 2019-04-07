@@ -1,4 +1,4 @@
-import { IStore } from "../typing";
+import { IStore } from '../typing';
 
 const store: IStore = {
   origin: {},
@@ -7,8 +7,15 @@ const store: IStore = {
 
 const list = () => {
   const {
+    origin,
     sorted,
   } = store;
+  if (sorted.length === 0) {
+    return Object.keys(origin).map((key) => ({
+      ...origin[key],
+      key,
+    }));
+  }
   return sorted;
 };
 
@@ -19,10 +26,15 @@ const save = (key: string, value: object) => {
   };
 };
 
-const sort = (key: string | number, order = 'DESC') => {
+export enum ISortType {
+  ASC,
+  DESC,
+}
+
+const sort = (key: string, order: ISortType = ISortType.DESC) => {
   const arrayList = Object.values(store.origin);
   arrayList.sort((prev, next) => {
-    if (order === 'ASC') {
+    if (order === ISortType.ASC) {
       return prev[key] - next[key];
     }
     return next[key] - prev[key];

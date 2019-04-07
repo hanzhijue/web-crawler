@@ -2,8 +2,9 @@ import axios from 'axios';
 import { load } from 'cheerio';
 import store from './store';
 import { ISorted } from '../typing';
+// import { iteratorPromise } from './utils';
 
-const parseCount = (count: string) => {
+const parseCount = (count: string): number => {
   if (count.includes('w')) {
     return Number(count.replace(/[w+]/g, '')) * 10000;
   }
@@ -12,7 +13,7 @@ const parseCount = (count: string) => {
 
 const analysisPageDocument = (docText: string, pageKey: number) => {
   const $ = load(docText);
-  $('.main').each((i: number, it) => {
+  $('.main').each((i, it) => {
     const name = $(it).find('.info h3').text();
     const downloadCount = parseCount($(it).find('.status_bar .download').text());
     const link = $($(it).children('a')[0]).attr('href');
@@ -30,12 +31,21 @@ const fetchData = async () => {
   const minPageNum = 1;
   const maxPageNum = 57;
   const eventQueue = [];
+
   for (let i = minPageNum; i <= maxPageNum; i += 1) {
+    // eventQueue.push(() => {
+    //   return axios.get(`https://xclient.info/s/${i}/`)
+    //     .then(({ data }) => {
+    //       return analysisPageDocument(data, i);
+    //     }) as Promise<any>;
+    // });
     eventQueue.push(axios.get(`https://xclient.info/s/${i}/`)
       .then(({ data }) => {
-        analysisPageDocument(data, i);
+        return analysisPageDocument(data, i);
       }));
   }
+
+  // iteratorPromise(eventQueue);
   return Promise.all(eventQueue);
 };
 
