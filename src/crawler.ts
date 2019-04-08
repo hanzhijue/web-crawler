@@ -51,7 +51,7 @@ const fetchData = async () => {
 
 const print = (list: ISorted) => {
   // console.log(JSON.stringify(list, undefined, 2));
-  list.forEach((item) => {
+  list.forEach((item, i) => {
     const {
       name,
       downloadCount,
@@ -59,7 +59,8 @@ const print = (list: ISorted) => {
       category,
       key,
     } = item;
-    console.group(`${name} -- ${downloadCount}`);
+    const index = i + 1;
+    console.group(`No. ${index}`);
     console.log(name);
     console.log(downloadCount);
     console.log(link);
