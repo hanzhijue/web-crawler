@@ -1,4 +1,4 @@
-export type ITask = () => Promise<any>;
+export type ITask = <T>() => Promise<T>;
 
 export type ITaskList = Array<ITask>;
 
@@ -7,7 +7,6 @@ const iteratorPromise = (tasks: ITaskList) => {
   tasks.forEach((task) => {
     res = res.then(() => task());
   });
-  return res;
 };
 
 export {

@@ -2,12 +2,12 @@
   "name": "web-crawler",
   "version": "1.0.0",
   "description": "web common crawler",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "repository": "https://github.com/suprekaka/web-crawler.git",
   "author": "Kaka <suprekaka@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "start": "npm run build & node ./index > result.log",
+    "start": "npm run build & node ./dist/index > result.log",
     "build": "rm -fr ./dist & mkdir ./dist & tsc",
     "watch": "rm -fr ./dist & mkdir ./dist & tsc -w"
   },

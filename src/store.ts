@@ -1,4 +1,4 @@
-import { IStore } from '../typing';
+import { IStore } from '../typing/store';
 
 const store: IStore = {
   origin: {},
