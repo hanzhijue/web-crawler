@@ -9,7 +9,8 @@
   "scripts": {
     "start": "npm run build & node ./dist/index > result.log",
     "build": "rm -fr ./dist & mkdir ./dist & tsc",
-    "watch": "rm -fr ./dist & mkdir ./dist & tsc -w"
+    "watch": "rm -fr ./dist & mkdir ./dist & tsc -w",
+    "lint": "eslint ./src/**/**.ts --fix "
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -19,6 +20,8 @@
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.11",
     "@types/node": "^11.13.0",
+    "@typescript-eslint/eslint-plugin": "^1.6.0",
+    "@typescript-eslint/parser": "^1.6.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",

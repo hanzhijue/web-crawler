@@ -1,17 +1,17 @@
-import { IStore } from '../typing/store';
+import { IStore, ISorted, IRecord } from '../typing/store';
 
 const store: IStore = {
   origin: {},
   sorted: [],
 };
 
-const list = () => {
+const list = (): ISorted => {
   const {
     origin,
     sorted,
   } = store;
   if (sorted.length === 0) {
-    return Object.keys(origin).map((key) => ({
+    return Object.keys(origin).map((key): IRecord => ({
       ...origin[key],
       key,
     }));
@@ -19,7 +19,7 @@ const list = () => {
   return sorted;
 };
 
-const save = (key: string, value: object) => {
+const save = (key: string, value: object): void => {
   store.origin[key] = {
     ...value,
     key,
@@ -31,9 +31,9 @@ export enum ISortType {
   DESC,
 }
 
-const sort = (key: string, order: ISortType = ISortType.DESC) => {
+const sort = (key: string, order: ISortType = ISortType.DESC): void => {
   const arrayList = Object.values(store.origin);
-  arrayList.sort((prev, next) => {
+  arrayList.sort((prev, next): number => {
     if (order === ISortType.ASC) {
       return prev[key] - next[key];
     }

@@ -11,9 +11,9 @@ const parseCount = (count: string): number => {
   return Number(count);
 };
 
-const analysisPageDocument = (docText: string, pageKey: number) => {
+const analysisPageDocument = (docText: string, pageKey: number): void => {
   const $ = load(docText);
-  $('.main').each((i, it) => {
+  $('.main').each((i, it): void => {
     const name = $(it).find('.info h3').text();
     const downloadCount = parseCount($(it).find('.status_bar .download').text());
     const link = $($(it).children('a')[0]).attr('href');
@@ -27,7 +27,7 @@ const analysisPageDocument = (docText: string, pageKey: number) => {
   });
 };
 
-const fetchData = async () => {
+const fetchData = async (): Promise<void[]> => {
   const minPageNum = 1;
   const maxPageNum = 57;
   const eventQueue = [];
@@ -40,18 +40,16 @@ const fetchData = async () => {
     //     }) as Promise<any>;
     // });
     eventQueue.push(axios.get(`https://xclient.info/s/${i}/`)
-      .then(({ data }) => {
-        return analysisPageDocument(data, i);
-      }));
+      .then(({ data }): void => analysisPageDocument(data, i)));
   }
 
   // iteratorPromise(eventQueue);
   return Promise.all(eventQueue);
 };
 
-const print = (list: ISorted) => {
+const print = (list: ISorted): void => {
   // console.log(JSON.stringify(list, undefined, 2));
-  list.forEach((item, i) => {
+  list.forEach((item, i): void => {
     const {
       name,
       downloadCount,
@@ -61,22 +59,22 @@ const print = (list: ISorted) => {
     } = item;
     const index = i + 1;
     console.group(`No. ${index}`);
-    console.log(name);
-    console.log(downloadCount);
-    console.log(link);
-    console.log(category);
-    console.log(key);
-    console.log('');
+    console.info(name);
+    console.info(downloadCount);
+    console.info(link);
+    console.info(category);
+    console.info(key);
+    console.info('');
     console.groupEnd();
   });
 };
 
-const run = () => fetchData()
-  .then(() => {
+const run = (): Promise<void> => fetchData()
+  .then((): void => {
     store.sort('downloadCount');
     print(store.list());
   });
 
 export {
   run,
-}
+};

@@ -1,10 +1,9 @@
 import { run } from './crawler';
 
 const startTime = Date.now();
-console.log('crawler start');
+console.info('crawler start');
 run()
   .then(() => {
     const takeTime = Date.now() - startTime;
-    console.log(`crawler finished. Takes ${takeTime}`);
+    console.info(`crawler finished. Takes ${takeTime}`);
   });
-
